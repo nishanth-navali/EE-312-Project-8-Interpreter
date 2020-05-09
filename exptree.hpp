@@ -14,14 +14,14 @@ using namespace std;
 class ExpTree {
 
     class Node {
-    private:
+    public:
         /* says if the node is operator or operand */
         bool is_operand;
 
         /* value of the operand if this is an operand node */
         int operand;
 
-        int optr_type;
+//        int optr_type;
 
         string optr;
 
@@ -35,7 +35,7 @@ class ExpTree {
         Node(const int operand) {
             this->is_operand = true;
             this->operand = operand;
-            this->optr_type = 0;
+//            this->optr_type = 0;
             this->optr = '0';
             this->left = nullptr;
             this->right = nullptr;
@@ -47,10 +47,16 @@ class ExpTree {
             this->optr = optr;
             this->left = left;
             this->right = right;
-            this->optr_type = operatorType();
+//            this->optr_type = operatorType();
 
         }
 
+        int toInt(bool b) {
+            if(b) return 1;
+            else {
+                return 0;
+            }
+        }
 
         // TODO: Figure this out
         int32_t eval() const {
@@ -65,30 +71,54 @@ class ExpTree {
                     return lv * rv;
                 } else if (optr == "-") {
                     return lv - rv;
-                } else if (optr)
+                } else if (optr == "/") {
+                    return lv/rv;
+                } else if (optr == "%") {
+                    return lv % rv;
+                } else if (optr == "&&") {
+                    return toInt(lv && rv);
+                } else if (optr == "||") {
+                    return toInt(lv || rv);
+                } else if (optr == "<") {
+                    return toInt(lv < rv);
+                } else if (optr == ">") {
+                    return toInt(lv > rv);
+                } else if (optr == "==") {
+                    return toInt(lv == rv);
+                } else if (optr == "!=") {
+                    return toInt(lv != rv);
+                } else if (optr == "<=") {
+                    return toInt(lv <= rv);
+                } else if (optr == ">=") {
+                    return toInt(lv >= rv);
+                } else if (optr == "~") {
+                    return -lv;
+                } else if (optr == "!") {
+                    return toInt(!lv);
+                }
+
             }
         }
 
-        bool eval() const {
-
-        }
-
-        int32_t operatorType() {
-            string a = this->optr;
-            if(a == "+" || a == "-" || a == "*" || a == "/" || a == "%") return 1;
-            else if(a == "&&" || a == "||") return 2;
-            else if(a == "<" || a == ">" || a == "==" || a == "!=" || a == "<=" || a == ">=") return 3;
-            else if(a == "~" || a == "!") return 4;
-            else {
-                return 0;
-            }
-        }
+//        int32_t operatorType() {
+//            string a = this->optr;
+//            if(a == "+" || a == "-" || a == "*" || a == "/" || a == "%") return 1;
+//            else if(a == "&&" || a == "||") return 2;
+//            else if(a == "<" || a == ">" || a == "==" || a == "!=" || a == "<=" || a == ">=") return 3;
+//            else if(a == "~" || a == "!") return 4;
+//            else {
+//                return 0;
+//            }
+//        }
 
         /* TODO: Copy constructor */
         // Node(const Node &other);
 
-        /* TODO: Destructor */
-        // ~Node();
+        ~Node() {
+            delete this->left;
+            delete this->right;
+            delete this;
+        }
 
         /* TODO: Assignment operator */
         // Node& operator=(const Node &other);
@@ -147,6 +177,8 @@ public:
 
     /* Evaluate the tree and return the value */
     int32_t eval() const;
+
+    void clear() const;
 };
 
 

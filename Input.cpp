@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include "Parse.h"
+#include <vector>
 
 
 TokenType next_token_type = INVALID;

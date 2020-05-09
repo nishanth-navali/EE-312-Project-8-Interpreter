@@ -7,6 +7,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <string>
 #include "exptree.hpp"
 
 ExpTree::Node* ExpTree::parse(vector<string> &expr) {
@@ -18,10 +19,13 @@ ExpTree::Node* ExpTree::parse(vector<string> &expr) {
     expr.erase(expr.begin());
     if (token == "+" || token == "-" || token == "*" || token == "/" || token == "%" || token == "&&" ||
         token == "||" || token == ">" || token == "<" || token == "==" || token == "!=" || token == "<=" ||
-        token == ">=" || token == "!" || token == "~") {
+        token == ">=" ) {
         Node *left = parse(expr);
         Node *right = parse(expr);
         return new Node(token, left, right);
+    } else if(token == "!" || token == "~") {
+        Node *left = parse(expr);
+        return new Node(token, left, nullptr);
     } else {
         return new Node(stoi(token));
     }
@@ -45,4 +49,7 @@ int32_t ExpTree::eval() const {
     } else {
         return root->eval();
     }
+}
+void ExpTree::clear() const {
+    delete root;
 }

@@ -6,11 +6,13 @@
 #define EE_312_PROJECT_8_INTERPRETER_LINKEDLIST_HPP
 
 #include <iostream>
+#include <string>
 
 using namespace std;
 
 typedef struct node {
     int val;
+    string name
     struct node *next;
 } Node;
 
@@ -18,7 +20,6 @@ class LinkedList {
 private:
     Node *head;
     int size;
-
     void destroy(void);
     void copy(const LinkedList &other);
 
@@ -32,13 +33,17 @@ public:
     LinkedList& operator=(const LinkedList &other);
 
     // insert at the beginning
-    void insert(int el);
+    void insert(string s, int el);
 
     // remove given element
     bool remove(int el);
 
+    void set(string s, int el);
+
     // true/false if element is inside
-    bool find(int el);
+    bool exists(string n);
+
+    Node* find(string name);
 
     //void print(ostream &os) const;
     void print() const;

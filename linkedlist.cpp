@@ -50,23 +50,40 @@ void LinkedList::destroy(void) {
     head = NULL;
 }
 
-void LinkedList::insert(int el) {
+void LinkedList::insert(string s, int el) {
     Node *node = new Node;
     node->val = el;
+    node->name = s;
     node->next = head;
     head = node;
     size++;
 }
 
-bool LinkedList::find(int el) {
+void LinkedList::set(string s, int el) {
+    find(name)->val = el;
+}
+
+bool LinkedList::exists(string n) {
     Node *current = head;
     while (current != NULL) {
-        if (current->val == el) {
+        if (current->name == n) {
             return true;
         }
         current = current->next;
     }
     return false;
+}
+
+Node* LinkedList::find(string name) {
+    Node *current = head;
+    Node *output = NULL;
+    while (current != NULL) {
+        if (current->name == n) {
+            output = current;
+        }
+        current = current->next;
+    }
+    return output;
 }
 
 bool LinkedList::remove(int el) {
