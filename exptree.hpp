@@ -7,6 +7,7 @@
 #include <vector>
 #include <string>
 #include <cstdint>
+#include <stdio.h>
 
 using namespace std;
 
@@ -51,7 +52,7 @@ class ExpTree {
 
         }
 
-        int toInt(bool b) {
+        int32_t toInt(bool b) const{
             if(b) return 1;
             else {
                 return 0;
@@ -76,25 +77,25 @@ class ExpTree {
                 } else if (optr == "%") {
                     return lv % rv;
                 } else if (optr == "&&") {
-                    return toInt(lv && rv);
+                    return this->toInt(lv && rv);
                 } else if (optr == "||") {
-                    return toInt(lv || rv);
+                    return this->toInt(lv || rv);
                 } else if (optr == "<") {
-                    return toInt(lv < rv);
+                    return this->toInt(lv < rv);
                 } else if (optr == ">") {
-                    return toInt(lv > rv);
+                    return this->toInt(lv > rv);
                 } else if (optr == "==") {
-                    return toInt(lv == rv);
+                    return this->toInt(lv == rv);
                 } else if (optr == "!=") {
-                    return toInt(lv != rv);
+                    return this->toInt(lv != rv);
                 } else if (optr == "<=") {
-                    return toInt(lv <= rv);
+                    return this->toInt(lv <= rv);
                 } else if (optr == ">=") {
-                    return toInt(lv >= rv);
+                    return this->toInt(lv >= rv);
                 } else if (optr == "~") {
                     return -lv;
                 } else if (optr == "!") {
-                    return toInt(!lv);
+                    return this->toInt(!lv);
                 }
 
             }
@@ -123,34 +124,34 @@ class ExpTree {
         /* TODO: Assignment operator */
         // Node& operator=(const Node &other);
 
-        void printInfix() const {
-            if (is_operand) {
-                cout << operand << ' ';
-            } else {
-                if (left != nullptr) {
-                    left->printInfix();
-                }
-                cout << optr << ' ';
-                if (right != nullptr) {
-                    right->printInfix();
-                }
-            }
-        }
-
-        void printPrefix() const {
-            if (is_operand) {
-                cout << operand << ' ';
-            } else {
-                cout << optr << ' ';
-                if (left != nullptr) {
-                    left->printPrefix();
-                }
-                if (right != nullptr) {
-                    right->printPrefix();
-                }
-            }
-        }
-    };
+//        void printInfix() const {
+//            if (is_operand) {
+//                cout << operand << ' ';
+//            } else {
+//                if (left != nullptr) {
+//                    left->printInfix();
+//                }
+//                cout << optr << ' ';
+//                if (right != nullptr) {
+//                    right->printInfix();
+//                }
+//            }
+//        }
+//
+//        void printPrefix() const {
+//            if (is_operand) {
+//                cout << operand << ' ';
+//            } else {
+//                cout << optr << ' ';
+//                if (left != nullptr) {
+//                    left->printPrefix();
+//                }
+//                if (right != nullptr) {
+//                    right->printPrefix();
+//                }
+//            }
+//        }
+//    };
 
     /* root of the expression tree */
     Node *root;
